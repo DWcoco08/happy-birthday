@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chúc mừng sinh nhật</title>
+    <style>
+      body {
+        font-family: "roboto", cursive, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(#ff9a9e, #fad0c4, #ffecd2);
+        background-size: 400% 400%;
+      }
+
+      #birthdayButton {
+        font-size: 24px;
+        padding: 15px 30px;
+        cursor: pointer;
+        background-color: #ff6b6b;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      #birthdayButton:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+      #message {
+        font-size: 32px;
+        margin-top: 30px;
+        text-align: center;
+        display: none;
+        color: #4a4a4a;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .gift {
+        font-size: 50px;
+        margin: 0 10px;
+        display: inline-block;
+        animation: bounce 0.5s infinite alternate;
+      }
+      @keyframes bounce {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-15px);
+        }
+      }
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #f0f0f0;
+        position: absolute;
+        top: -10px;
+        animation: confetti 5s ease-in-out infinite;
+      }
+      @keyframes confetti {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="birthdayButton">Đủ 19 tuổi thì nhấn vào đây</button>
+      <div id="message"></div>
+    </div>
+    <script>
+      document
+        .getElementById("birthdayButton")
+        .addEventListener("click", function () {
+          const message = document.getElementById("message");
+          message.innerHTML =
+            'Chúc mừng sinh nhật Bé Thị, tuổi mới học giỏi và xinh đẹp nhé! <span class="gift">🎁</span><span class="gift">🎂</span><span class="gift">🎈</span>';
+          message.style.display = "block";
+          this.style.display = "none";
+          for (let i = 0; i < 50; i++) {
+            createConfetti();
+          }
+        });
+      function createConfetti() {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+        confetti.style.backgroundColor = getRandomColor();
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+      function debounce(func, delay) {
+        let debounceTimer;
+        return function () {
+          const context = this;
+          const args = arguments;
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+      }
+
+      // Usage example:
+      document.getElementById("inputField").addEventListener(
+        "input",
+        debounce(function () {
+          // Your event handling code here
+        }, 300)
+      );
+    </script>
+  </body>
+</html>
